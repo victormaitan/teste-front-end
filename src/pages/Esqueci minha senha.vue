@@ -6,7 +6,7 @@
 
       <q-card bordered class="bg-grey-0" style="width: 30vw;">
         <q-card-section>
-          <p class="text-h5 q-pt-xl q-mx-md text-primary">
+          <p class="text-h5 q-pt-xl q-mx-md text-red-8">
             Esqueci minha senha
           </p>
           <p class="q-mx-md q-mb-md text-grey">
@@ -37,7 +37,7 @@
             style="width: 45%"
           />
           <q-btn
-            class="bg-primary text-white "
+            class="bg-red-10 text-white "
             standard
             @click="Reset"
             label="Recuperar"
@@ -53,7 +53,7 @@
       </q-toolbar>
       <div class="col flex flex-center">
         <div class="col-10" style="width: 95vw; height: 70vh">
-          <p class="text-h5 q-pt-xl q-mx-md text-primary">
+          <p class="text-h5 q-pt-xl q-mx-md text-red-8">
             Esqueci minha senha
           </p>
           <p class="q-mx-md q-mb-xl text-grey">
@@ -74,7 +74,7 @@
         </div>
         <div class="row items-center justify-center q-px-sm q-pt-xl">
           <q-btn
-            class="bg-secondary text-white "
+            class="bg-red-10 text-white "
             standard
             no-caps
             @click="Reset"

@@ -1,18 +1,19 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
-      <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="leftDrawerOpen = !leftDrawerOpen"
-        />
-        <q-toolbar-title>
+    <q-header>
+      <q-toolbar class="bg-red-8">
+        <q-toolbar-title class="q-ml-sm flex">
           Frontend Test/Anota AI
         </q-toolbar-title>
+        <div>
+          <q-btn
+            standout
+            label="Adicionar"
+            class="bg-warning text-red-8 q-mr-md"
+            icon-right="add"
+            @click="$router.push({ name: 'Adicionar' })"
+          />
+        </div>
         <div>
           <q-btn
             flat
@@ -22,20 +23,39 @@
           />
         </div>
       </q-toolbar>
+      <q-toolbar class="bg-warning text-white shadow-2" style="height: 80px">
+        <div class="col-4 flex justify-center">
+          <q-btn
+            :class="classProducts"
+            flat
+            no-caps
+            label="Todos"
+            style="width: 300px"
+            @click="menu('todos')"
+          />
+        </div>
+        <div class="col-4 flex justify-center">
+          <q-btn
+            :class="classBurgers"
+            flat
+            no-caps
+            label="Burgers"
+            style="width: 300px"
+            @click="menu('burgers')"
+          />
+        </div>
+        <div class="btn col-4 flex justify-center">
+          <q-btn
+            :class="classPizzas"
+            flat
+            no-caps
+            label="Pizzas"
+            style="width: 300px"
+            @click="menu('pizzas')"
+          />
+        </div>
+      </q-toolbar>
     </q-header>
-
-    <q-drawer v-model="leftDrawerOpen" bordered content-class="bg-grey-1">
-      <q-list>
-        <q-item-label header class="text-grey-8">
-          Essential Links
-        </q-item-label>
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
-      </q-list>
-    </q-drawer>
 
     <q-page-container>
       <router-view />
@@ -44,61 +64,48 @@
 </template>
 
 <script>
-import EssentialLink from 'components/EssentialLink.vue'
-
-const linksData = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
-]
-
 export default {
   name: 'MainLayout',
-  components: { EssentialLink },
   data () {
     return {
-      leftDrawerOpen: false,
-      essentialLinks: linksData
+      classProducts: 'bg-grey-3 text-black',
+      classBurgers: 'bg-red-8 text-white',
+      classPizzas: 'bg-red-8 text-white'
+    }
+  },
+  methods: {
+    menu (id) {
+      switch (id) {
+        case 'todos': {
+          this.classProducts = 'bg-grey-3 text-black'
+          this.classBurgers = 'bg-red-8 text-white'
+          this.classPizzas = 'bg-red-8 text-white'
+          this.$router.push({ name: 'Index' })
+          break
+        }
+        case 'burgers': {
+          this.classProducts = 'bg-red-8 text-white'
+          this.classBurgers = 'bg-grey-3 text-black'
+          this.classPizzas = 'bg-red-8 text-white'
+          this.$router.push({ name: 'Burgers' })
+          break
+        }
+        case 'pizzas': {
+          this.classProducts = 'bg-red-8 text-white'
+          this.classBurgers = 'bg-red-8 text-white'
+          this.classPizzas = 'bg-grey-3 text-black'
+          this.$router.push({ name: 'Pizzas' })
+          break
+        }
+      }
     }
   }
 }
 </script>
+
+<style scoped>
+.active,
+.btn:hover {
+  color: white;
+}
+</style>

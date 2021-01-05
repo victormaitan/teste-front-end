@@ -8,9 +8,9 @@
       <div class=" col-sm-6 col-md-6 col-lg-6" style="padding: 0 10% 0 10%">
         <q-card class=" shadow-0">
           <q-card-section style="padding:0px" class="text-black">
-            <p class="text-h6 text-weight-bold text-primary">Login</p>
+            <p class="text-h6 text-weight-bold text-red-8">Login</p>
             <div>
-              <p class="text-primary" style="margin-bottom: 4px">E-mail</p>
+              <p class="text-red-8" style="margin-bottom: 4px">E-mail</p>
               <q-input
                 color="grey"
                 outlined
@@ -19,7 +19,7 @@
                 v-model.trim="email"
                 lazy-rules
               />
-              <p class="text-primary" style="margin-bottom: 4px">Senha</p>
+              <p class="text-red-8" style="margin-bottom: 4px">Senha</p>
               <q-input
                 color="grey-5"
                 outlined
@@ -50,7 +50,7 @@
                 class="text-grey"
                 label="Lembrar"
                 v-model="remember"
-                color="primary"
+                color="red-10"
               />
               <div
                 v-ripple
@@ -64,7 +64,7 @@
           </q-card-section>
         </q-card>
         <q-btn
-          class="text-white full-width bg-primary"
+          class="text-white full-width bg-red-10"
           @click="login"
           label="Entrar"
           :disable="password.length < 6"
@@ -72,8 +72,8 @@
         />
       </div>
       <div
-        class="col-sm-6 col-sm-6 col-lg-6 items-center justify-center text-center xs-hide"
-        style="padding: 100% 0 100% 0;background-color: #19769f"
+        class="col-sm-6 col-sm-6 col-lg-6 items-center justify-center text-center xs-hide bg-red-8"
+        style="padding: 100% 0 100% 0;"
       >
         <div style="row">
           <q-img
@@ -95,12 +95,12 @@
         <img
           class="no-padding no-margin"
           src="~assets/quasar-logo-full.svg"
-          style="width: 40vw"
+          style="width: 50vw"
         />
-        <h4 class="text-primary no-padding">Anota AI Test</h4>
+        <h4 class="text-red-8 no-padding">Anota AI Test</h4>
       </div>
       <div class="" style="width: 95vw">
-        <p class="text-h5 q-mx-md text-primary" style="">Entrar</p>
+        <p class="text-h5 q-mx-md text-red-8" style="">Entrar</p>
         <div class="row items-center justify-center q-px-sm q-pb-sm">
           <q-input
             v-model="email"
@@ -132,7 +132,7 @@
             class="text-grey"
             label="Lembrar"
             v-model="remember"
-            color="secondary"
+            color="red-10"
           />
           <q-btn
             class="text-grey"
@@ -144,7 +144,7 @@
         </div>
         <div class="row items-center justify-center q-px-sm q-pt-md">
           <q-btn
-            class="bg-secondary text-white"
+            class="bg-red-10 text-white"
             standard
             no-caps
             label="Entrar"
@@ -172,7 +172,10 @@ export default {
       email: '',
       password: '',
       rememberPass: false,
-      rememberUserPass: ''
+      rememberUserPass: '',
+      products: [],
+      pizzas: [],
+      burgers: []
     }
   },
   mounted () {
@@ -182,30 +185,59 @@ export default {
   },
   methods: {
     getBurgers () {
+      function addStar (array) {
+        array.forEach(element => {
+          element.stars = 0
+        })
+        return array
+      }
       fetch('https://front-end-test-app.s3.amazonaws.com/menu.json')
         .then(response => response.json())
-        .then(data => (window.localStorage.setItem('burgers', JSON.stringify(data[0].products))))
+        .then(data =>
+          window.localStorage.setItem(
+            'burgers',
+            JSON.stringify(addStar(data[0].products))
+          )
+        )
     },
+
     getPizzas () {
+      function addStar (array) {
+        array.forEach(element => {
+          element.stars = 0
+        })
+        return array
+      }
       fetch('https://front-end-test-app.s3.amazonaws.com/menu.json')
         .then(response => response.json())
-        .then(data => (window.localStorage.setItem('pizzas', JSON.stringify(data[1].products))))
+        .then(data =>
+          window.localStorage.setItem(
+            'pizzas',
+            JSON.stringify(addStar(data[1].products))
+          )
+        )
     },
+
     concatProducts () {
       function randOrd () {
         return Math.round(Math.random()) - 0.5
       }
-      const array = JSON.parse(window.localStorage.getItem('burgers')).concat(JSON.parse(window.localStorage.getItem('pizzas')))
+      const array = JSON.parse(window.localStorage.getItem('burgers')).concat(
+        JSON.parse(window.localStorage.getItem('pizzas'))
+      )
       array.sort(randOrd)
       this.products = array
       window.localStorage.setItem('products', JSON.stringify(this.products))
     },
+
     ForgotPassword () {
       this.$router.push({ name: 'EsqueciSenha' })
     },
+
     Home () {
       this.$router.push({ name: 'Index' })
     },
+
     login () {
       if (this.remember) {
         this.rememberUser.email = this.email
@@ -230,6 +262,7 @@ export default {
         )
       }
     },
+
     VerifyUserRemember () {
       if (window.localStorage.getItem('remember')) {
         this.remember = true

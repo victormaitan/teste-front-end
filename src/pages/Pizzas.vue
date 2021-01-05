@@ -1,9 +1,9 @@
 <template>
-  <q-page class="flex">
+  <q-page class="flex flex-start">
     <div class="row q-ma-sm q-my-md justify-center full-width">
       <q-card
         class="col-md-3 col-lg-4 q-ma-xs"
-        v-for="(product, id) in products"
+        v-for="(product, id) in pizzas"
         :key="product"
         style="max-width: 300px;"
       >
@@ -44,29 +44,29 @@
 
 <script>
 export default {
-  name: 'Index',
+  name: 'Pizzas',
   data () {
     return {
-      products: []
+      pizzas: []
     }
   },
   mounted () {
-    this.getProducts()
+    this.getPizzas()
   },
   methods: {
-    getProducts () {
-      this.products = JSON.parse(window.localStorage.getItem('products'))
+    getPizzas () {
+      this.pizzas = JSON.parse(window.localStorage.getItem('pizzas'))
     },
 
     updateRating () {
-      window.localStorage.setItem('products', JSON.stringify(this.products))
+      window.localStorage.setItem('pizzas', JSON.stringify(this.pizzas))
     },
 
     removeProductsItem (id) {
       const index = id
       if (index > -1) {
-        this.products.splice(index, 1)
-        window.localStorage.setItem('products', JSON.stringify(this.products))
+        this.pizzas.splice(index, 1)
+        window.localStorage.setItem('pizzas', JSON.stringify(this.pizzas))
       }
     }
   }

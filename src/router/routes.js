@@ -11,7 +11,9 @@ const routes = [
     path: '/auth',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', name: 'Index', component: () => import('pages/Index.vue') }
+      { path: '/Home', name: 'Index', component: () => import('pages/Index.vue') },
+      { path: '/Burgers', name: 'Burgers', component: () => import('pages/Burgers.vue') },
+      { path: '/Pizzas', name: 'Pizzas', component: () => import('pages/Pizzas.vue') }
     ]
   },
 
