@@ -16,3 +16,11 @@ quasar dev
 ```bash
 quasar build
 ```
+
+### User and password
+```bash
+User: user@test.com
+```
+```bash
+Password: user123
+```
