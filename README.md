@@ -1,6 +1,6 @@
 # Frontend Test Anota Ai (front-end-test-anota-ai)
 
-Test Anota Ai
+Test Anota Ai - Frontend criado para o teste da empresa Anota AI
 
 ## Install the dependencies
 ```bash
@@ -12,15 +12,7 @@ yarn
 quasar dev
 ```
 
-### Lint the files
-```bash
-yarn run lint
-```
-
 ### Build the app for production
 ```bash
 quasar build
 ```
-
-### Customize the configuration
-See [Configuring quasar.conf.js](https://quasar.dev/quasar-cli/quasar-conf-js).
