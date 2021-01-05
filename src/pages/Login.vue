@@ -177,8 +177,29 @@ export default {
   },
   mounted () {
     this.VerifyUserRemember()
+    this.getBurgers()
+    this.getPizzas()
   },
   methods: {
+    getBurgers () {
+      fetch('https://front-end-test-app.s3.amazonaws.com/menu.json')
+        .then(response => response.json())
+        .then(data => (window.localStorage.setItem('burgers', JSON.stringify(data[0].products))))
+    },
+    getPizzas () {
+      fetch('https://front-end-test-app.s3.amazonaws.com/menu.json')
+        .then(response => response.json())
+        .then(data => (window.localStorage.setItem('pizzas', JSON.stringify(data[1].products))))
+    },
+    concatProducts () {
+      function randOrd () {
+        return Math.round(Math.random()) - 0.5
+      }
+      const array = JSON.parse(window.localStorage.getItem('burgers')).concat(JSON.parse(window.localStorage.getItem('pizzas')))
+      array.sort(randOrd)
+      this.products = array
+      window.localStorage.setItem('products', JSON.stringify(this.products))
+    },
     ForgotPassword () {
       this.$router.push({ name: 'EsqueciSenha' })
     },
@@ -199,6 +220,7 @@ export default {
       }
 
       if (this.email === 'user@test.com' && this.password === 'user123') {
+        this.concatProducts()
         this.Home()
       } else {
         this.$functions().showNotify(
