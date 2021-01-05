@@ -12,7 +12,7 @@ yarn
 quasar dev
 ```
 
-### Build the app for production
+### Build the app
 ```bash
 quasar build
 ```
